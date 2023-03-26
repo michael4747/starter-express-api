@@ -128,7 +128,7 @@ exports.logIn = async (req, res) => {
 exports.updateStatus = async (req, res) => {
     try {
         await statusModel.findOneAndUpdate({ _id: ObjectId('64207536d8509e0bdd797ba6') }, { status: false }).then((statusData) => {
-            res.status(200).send({ success: true, msg: "Status updated successfully", data: {}, errors: '' });
+            res.status(200).send({ success: true, msg: "Status updated successfully", data: statusData, errors: '' });
         })
     } catch (err) {
         res.status(500).send({ success: false, msg: "Error", data: {}, errors: err });
