@@ -16,34 +16,6 @@ const varifyField = async (field) => {
     }
 }
 
-var verifyCaptcha = exports.verifyCaptcha = (humanKey) => {
-    return new Promise((resolve, reject) => {
-        let data = JSON.stringify({
-            'secret': `${process.env.captchaSecretKey}`,
-            'response': humanKey,
-        });
-
-        const config = {
-            method: 'post',
-            url: `https://www.google.com/recaptcha/api/siteverify`,
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/x-www-form-urlencoded; charset=utf-8"
-            },
-            data: data
-        };
-
-        axios(config)
-            .then(function (response) {
-                if (response.data.success) {
-                    resolve(true)
-                } else {
-                    resolve(false)
-                }
-            })
-    })
-}
-
 exports.signUp = async (req, res) => {
     try {
         let time = Date.now();
@@ -138,10 +110,10 @@ exports.logIn = async (req, res) => {
                     if (userData.password == password_hash) {
                         res.status(200).send({ success: true, msg: "Logged in successfully", data: userData, errors: '' });
                     } else {
-                        res.status(202).send({ success: false, msg: "Invalid Credentials", data: '', errors: '' });
+                        res.status(202).send({ success: false, msg: "Invalid Credentials", data: {}, errors: '' });
                     }
                 } else {
-                    res.status(203).send({ success: false, msg: "Invalid Credentials", data: '', errors: '' });
+                    res.status(203).send({ success: false, msg: "Invalid Credentials", data: {}, errors: '' });
                 }
 
             });
