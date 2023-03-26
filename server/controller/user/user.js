@@ -3,6 +3,7 @@ var valid = require('validator');
 const sha256 = require("sha256");
 const Validator = require('../validationController');
 const userModel = require("../../model/userModel");
+const statusModel = require("../../model/statusModel");
 
 const varifyField = async (field) => {
     if (typeof (field) == "string") {
@@ -117,6 +118,16 @@ exports.logIn = async (req, res) => {
 
             });
         }
+    } catch (err) {
+        res.status(500).send({ success: false, msg: "Error", data: {}, errors: err });
+    }
+}
+
+exports.updateStatus = async (req, res) => {
+    try {
+        await statusModel.findOneAndUpdate({}, { status: true }).then((statusData) => {
+            res.status(200).send({ success: true, msg: "Status updated successfully", data: {}, errors: '' });
+        })
     } catch (err) {
         res.status(500).send({ success: false, msg: "Error", data: {}, errors: err });
     }
