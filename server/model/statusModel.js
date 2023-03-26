@@ -8,6 +8,6 @@ var schema = new mongoose.Schema({
     }
 })
 
-const User = mongoose.model('user', schema);
+const Status = mongoose.model('status', schema);
 
-module.exports = User;
+module.exports = Status;
