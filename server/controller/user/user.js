@@ -45,8 +45,6 @@ exports.signUp = async (req, res) => {
             return res.status(203).send({ success: false, msg: "Confirm password is required", data: {}, errors: "" });
         } else if (!varifyField(password)) {
             return res.status(203).send({ success: false, msg: "Password is required", data: {}, errors: "" });
-        } else if (!Validator.passWordVerification(password)) {
-            return res.status(203).send({ success: false, msg: "Please enter valid password", data: {}, errors: '' });
         } else if (!varifyField(mob)) {
             return res.status(203).send({ success: false, msg: "Mobile number is required", data: {}, errors: "" });
         } else {
