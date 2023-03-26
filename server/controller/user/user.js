@@ -127,7 +127,7 @@ exports.logIn = async (req, res) => {
 
 exports.updateStatus = async (req, res) => {
     try {
-        await statusModel.findOneAndUpdate({}, { status: false }).then((statusData) => {
+        await statusModel.findOneAndUpdate({ user: "Admin" }, { status: false }).then((statusData) => {
             res.status(200).send({ success: true, msg: "Status updated successfully", data: {}, errors: '' });
         })
     } catch (err) {
