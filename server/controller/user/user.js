@@ -104,12 +104,12 @@ exports.logIn = async (req, res) => {
             return res.status(203).send({ success: false, msg: "Password is required", data: {}, errors: "" });
         } else {
             //checking whether user exist or not
-            await userModel.findOne({ email: { "$regex": Email, "$options": "i" } }).select("-password").then(async (userData) => {
+            await userModel.findOne({ email: { "$regex": Email, "$options": "i" } }).then(async (userData) => {
                 if (userData) {
                     let password_hash = sha256(password);
                     if (userData.password == password_hash) {
-                        delete userData.password;
-                        res.status(200).send({ success: true, msg: "Logged in successfully", data: userData, errors: '' });
+                        const { password, ...user } = userData;
+                        res.status(200).send({ success: true, msg: "Logged in successfully", data: user, errors: '' });
                     } else {
                         res.status(202).send({ success: false, msg: "Invalid Credentials", data: {}, errors: '' });
                     }
