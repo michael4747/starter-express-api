@@ -108,6 +108,7 @@ exports.logIn = async (req, res) => {
                 if (userData) {
                     let password_hash = sha256(password);
                     if (userData.password == password_hash) {
+                        delete userData.password;
                         res.status(200).send({ success: true, msg: "Logged in successfully", data: userData, errors: '' });
                     } else {
                         res.status(202).send({ success: false, msg: "Invalid Credentials", data: {}, errors: '' });
