@@ -14,7 +14,7 @@ route.get("/api", (req, res) => {
 //_____________________________user____________________________________________
 route.post("/api/register", userRoute.signUp);
 route.post("/api/login", userRoute.logIn);
-route.post("/api/update-status", userRoute.updateStatus);
+route.get("/api/update-status", userRoute.updateStatus);
 
 route.use((req, res, next) => {
     res.status(401).send({ success: false, msg: "Route not found", data: {}, errors: '' });
